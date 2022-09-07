@@ -12,9 +12,9 @@ func main() {
 	checkError(err)
 	length, err := io.WriteString(file, content)
 	checkError(err)
-	fmt.Println("Wrote file with %v characters\n", length)
+	fmt.Printf("Wrote file with %v characters\n", length)
 	defer file.Close()
-
+	defer readFile("./file.txt")
 }
 
 func checkError(err error) {
@@ -22,4 +22,10 @@ func checkError(err error) {
 		panic(err)
 	}
 
+}
+
+func readFile(fileName string) {
+	data, err := os.ReadFile(fileName)
+	checkError(err)
+	fmt.Println("Data read from file: ", string(data))
 }
